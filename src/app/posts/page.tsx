@@ -1,7 +1,6 @@
-// src/app/posts/page.tsx
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -21,8 +20,8 @@ type PostsResponse = {
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:4000";
 
-export default function PostsPage() {
-  // Use the useSearchParams hook to get query parameters
+// Wrap the component that uses useSearchParams in Suspense
+function PostsContent() {
   const searchParams = useSearchParams();
   const query = searchParams.get('query') || undefined;
   const category = searchParams.get('category') || undefined;
@@ -32,7 +31,6 @@ export default function PostsPage() {
   const [posts, setPosts] = useState<Post[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  // Fetch posts on component mount
   useEffect(() => {
     async function fetchPosts() {
       try {
@@ -56,7 +54,6 @@ export default function PostsPage() {
     fetchPosts();
   }, []);
 
-  // Filter posts
   const filteredPosts = posts.filter((post) => {
     const matchesSearch = query
       ? post.title.toLowerCase().includes(query.toLowerCase()) ||
@@ -70,12 +67,10 @@ export default function PostsPage() {
 
   const categories = Array.from(new Set(posts.map((p) => p.category)));
 
-  // Animation effects
   useEffect(() => {
     if (isLoading || typeof window === 'undefined') return;
 
     const ctx = gsap.context(() => {
-      // Animation code remains the same
       gsap.fromTo(
         ['.search-bar', '.category-filter'],
         { y: 20, opacity: 0 },
@@ -189,5 +184,17 @@ export default function PostsPage() {
         )}
       </main>
     </div>
+  );
+}
+
+export default function PostsPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-bg-primary pt-20 flex items-center justify-center">
+        <div className="text-xl">Loading...</div>
+      </div>
+    }>
+      <PostsContent />
+    </Suspense>
   );
 }
