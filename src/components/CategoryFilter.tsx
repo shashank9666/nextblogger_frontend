@@ -34,7 +34,7 @@ export default function CategoryFilter({
         <select
           id="category"
           name="category"
-          className="block w-full rounded-md border border-black/20 py-2 pl-3 pr-10 text-black focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500 sm:text-sm appearance-none"
+          className="block w-full rounded-md border border-border py-2 pl-3 pr-10 text-text-primary focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent sm:text-sm appearance-none bg-bg-secondary"
           value={selectedCategory}
           onChange={(e) => handleCategoryChange(e.target.value)}
           style={{
@@ -51,7 +51,7 @@ export default function CategoryFilter({
         <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
           {/* Custom Chevron down icon */}
           <svg
-            className="h-5 w-5 text-black/40"
+            className="h-5 w-5 text-text-muted"
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 20 20"
             fill="currentColor"

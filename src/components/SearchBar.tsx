@@ -42,7 +42,7 @@ export default function SearchBar({ placeholder }: { placeholder: string }) {
         <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
           {/* Inline SVG for search icon */}
           <svg
-            className="h-5 w-5 text-black/40"
+            className="h-5 w-5 text-text-muted"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
@@ -60,7 +60,7 @@ export default function SearchBar({ placeholder }: { placeholder: string }) {
           type="text"
           name="search"
           id="search"
-          className="block w-full rounded-md border border-black/20 py-2 pl-10 pr-3 text-black placeholder:text-black/40 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500 sm:text-sm"
+          className="block w-full rounded-md border border-border py-2 pl-10 pr-3 text-text-primary placeholder:text-text-muted focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent sm:text-sm bg-bg-secondary"
           placeholder={placeholder}
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
@@ -68,7 +68,7 @@ export default function SearchBar({ placeholder }: { placeholder: string }) {
         {searchTerm && (
           <button
             type="button"
-            className="absolute inset-y-0 right-0 flex items-center pr-3 text-black/40 hover:text-black/60"
+            className="absolute inset-y-0 right-0 flex items-center pr-3 text-text-muted hover:text-text-secondary"
             onClick={() => setSearchTerm("")}
           >
             <span className="sr-only">Clear search</span>

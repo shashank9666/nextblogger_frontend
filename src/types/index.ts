@@ -8,16 +8,32 @@ export type User = {
 };
 
 export type Post = {
-  category: string;
   _id: string;
   title: string;
   slug: string;
   excerpt?: string;
   content: string;
+  category: string;
   tags: string[];
-  authorId: string; // keep the ID for reference in DB
-  author?: User;    // ✅ new property so we can access author.name etc.
+  authorId: string;
+  author?: User;
   published: boolean;
   createdAt: string;
   updatedAt: string;
+};
+
+export type CreatePostData = {
+  title: string;
+  excerpt?: string;
+  content: string;
+  category: string;
+  tags: string[];
+  published: boolean;
+};
+
+// This matches your backend response structure
+export type ApiResponse<T> = {
+  success: boolean;
+  data: T;
+  message?: string;
 };

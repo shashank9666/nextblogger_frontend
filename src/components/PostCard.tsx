@@ -3,22 +3,21 @@ import { Post } from "@/types";
 
 export default function PostCard({ post }: { post: Post }) {
   return (
-    <div className="group rounded-lg border border-gray-200 bg-white p-6 transition-all hover:shadow-md hover:border-blue-300">
-      
+    <div className="group rounded-lg border border-border bg-bg-secondary p-6 transition-all hover:shadow-md hover:border-accent">
       {/* Category + Published Status */}
       <div className="mb-3 flex items-center gap-2">
-        <span className="rounded-full bg-blue-100 px-3 py-1 text-xs font-medium text-blue-800">
+        <span className="rounded-full bg-hover-bg px-3 py-1 text-xs font-medium text-accent">
           {post.category}
         </span>
         {!post.published && (
-          <span className="rounded-full bg-yellow-100 px-2 py-1 text-xs font-medium text-yellow-800">
+          <span className="rounded-full bg-yellow-100 px-2 py-1 text-xs font-medium text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200">
             Draft
           </span>
         )}
       </div>
       
       {/* Post Title */}
-      <h2 className="mb-2 text-xl font-semibold text-gray-900 group-hover:text-blue-600 transition-colors">
+      <h2 className="mb-2 text-xl font-semibold text-text-primary group-hover:text-accent transition-colors">
         <Link href={`/posts/${post.slug}`} className="hover:underline">
           {post.title}
         </Link>
@@ -26,13 +25,13 @@ export default function PostCard({ post }: { post: Post }) {
       
       {/* Excerpt */}
       {post.excerpt && (
-        <p className="mb-3 text-gray-600 line-clamp-2">{post.excerpt}</p>
+        <p className="mb-3 text-text-secondary line-clamp-2">{post.excerpt}</p>
       )}
 
       {/* Author */}
       {post.author?.name && (
-        <p className="mb-4 text-sm text-gray-500">
-          By <span className="font-medium text-gray-700">{post.author.name}</span>
+        <p className="mb-4 text-sm text-text-muted">
+          By <span className="font-medium text-text-secondary">{post.author.name}</span>
         </p>
       )}
 
@@ -42,17 +41,18 @@ export default function PostCard({ post }: { post: Post }) {
           {post.tags.map((tag) => (
             <span 
               key={tag} 
-              className="rounded-full bg-gray-100 px-2 py-1 text-xs text-gray-600"
+              className="rounded-full bg-hover-bg px-2 py-1 text-xs text-text-muted"
             >
               {tag}
             </span>
           ))}
         </div>
       )}
+      
       {/* Read More Link */}
       <Link
         href={`/posts/${post.slug}`}
-        className="inline-flex items-center text-blue-600 font-medium hover:underline hover:text-blue-700"
+        className="inline-flex items-center text-accent font-medium hover:underline hover:text-accent-hover"
       >
         Read more
         <svg
