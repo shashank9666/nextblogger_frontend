@@ -18,11 +18,21 @@ export default function BlogDetailPage() {
 
     const fetchBlog = async () => {
       try {
-        const res = await fetch(`http://localhost:5173/blogs/${id}`);
-        if (!res.ok) throw new Error("Blog not found");
+        const API_URL = process.env.NEXT_PUBLIC_API_URL;
+
+        if (!API_URL) {
+          throw new Error("NEXT_PUBLIC_API_URL is not defined");
+        }
+
+        const res = await fetch(`${API_URL}/blogs/${id}`);
+
+        if (!res.ok) {
+          throw new Error("Blog not found");
+        }
 
         const data = await res.json();
         setBlog(data);
+
       } catch (err) {
         setError(err.message);
       } finally {
@@ -52,26 +62,8 @@ export default function BlogDetailPage() {
 
   /* ================= CONTENT ================= */
   return (
-    <div 
-      className="min-h-screen bg-gray-100 pt-32 pb-12 px-6 md:px-12 lg:px-20"
-      style={{
-        paddingTop: '60px',
-        paddingBottom: '3rem',
-        minHeight: '100vh',
-        backgroundColor: '#f3f4f6'
-      }}
-    >
-      {/* CARD CONTAINER with spacing on all sides - now full width */}
-      <article 
-        className="bg-white rounded-2xl shadow-lg p-8 md:p-12 lg:p-16 w-full"
-        style={{
-          backgroundColor: 'white',
-          borderRadius: '1rem',
-          boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1)',
-          padding: '4rem',
-          width: '100%'
-        }}
-      >
+    <div className="min-h-screen bg-gray-100 pt-32 pb-12 px-6 md:px-12 lg:px-20">
+      <article className="bg-white rounded-2xl shadow-lg p-8 md:p-12 lg:p-16 w-full">
         {/* TITLE */}
         <h1 className="text-4xl md:text-5xl font-extrabold mb-6 leading-tight">
           {blog.title}
